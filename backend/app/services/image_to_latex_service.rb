@@ -1,35 +1,57 @@
+require 'net/http'
+require 'json'
+require 'base64'
+
 class ImageToLatexService
+  GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent"
+
   def initialize(image_file)
     @image_file = image_file
-    @client = Google::Generative::Client.new(api_key: ENV["GEMINI_API_KEY"])
+    @api_key = ENV["GEMINI_API_KEY"]
   end
 
   def convert
-    # Read the image file and encode to base64
+    # Read and encode image
     image_data = File.read(@image_file.path)
     base64_image = Base64.strict_encode64(image_data)
-
-    # Determine MIME type based on file extension
     mime_type = determine_mime_type(@image_file.content_type || @image_file.filename)
 
-    # Call Gemini Vision API
-    response = @client.generate_content(
-      model: "gemini-3-flash-preview",
-      contents: {
-        parts: [
-          { text: vision_prompt },
-          {
-            inline_data: {
-              mime_type: mime_type,
-              data: base64_image
+    # Build request payload
+    payload = {
+      contents: [
+        {
+          parts: [
+            { text: vision_prompt },
+            {
+              inline_data: {
+                mime_type: mime_type,
+                data: base64_image
+              }
             }
-          }
-        ]
-      }
-    )
+          ]
+        }
+      ]
+    }
 
-    # Extract and return the text content
-    response.dig("candidates", 0, "content", "parts", 0, "text") || ""
+    # Make REST API call
+    uri = URI(GEMINI_API_URL)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+
+    request = Net::HTTP::Post.new(uri)
+    request["x-goog-api-key"] = @api_key
+    request["Content-Type"] = "application/json"
+    request.body = payload.to_json
+
+    response = http.request(request)
+
+    # Parse response
+    if response.code == "200"
+      result = JSON.parse(response.body)
+      result.dig("candidates", 0, "content", "parts", 0, "text") || ""
+    else
+      raise "API Error: #{response.code} - #{response.body}"
+    end
   rescue StandardError => e
     raise "Error converting image to LaTeX: #{e.message}"
   end
