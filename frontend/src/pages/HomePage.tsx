@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import axios, { AxiosError } from 'axios'
 import Vara from 'vara'
 import { UploadData, ConvertResponse } from '../types'
+import FloatingNote from '../components/FloatingNote'
 import './HomePage.css'
 
 export default function HomePage() {
@@ -113,6 +114,32 @@ export default function HomePage() {
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
+      {/* Floating Notes */}
+      <FloatingNote
+        className="floating-note-1"
+        delay={0.2}
+        rotate={-8}
+        content={['∫ f(x)dx', 'lim x→∞', 'e^(iπ) + 1 = 0']}
+      />
+      <FloatingNote
+        className="floating-note-2"
+        delay={0.4}
+        rotate={6}
+        content={['dy/dx = 2x', '√(x² + y²)', 'sin²θ + cos²θ']}
+      />
+      <FloatingNote
+        className="floating-note-3"
+        delay={0.6}
+        rotate={-5}
+        content={['∑ n²', 'd/dt[v(t)]', 'Δx → 0']}
+      />
+      <FloatingNote
+        className="floating-note-4"
+        delay={0.8}
+        rotate={7}
+        content={['∂f/∂x', '∇ · F', '∬ A dA']}
+      />
+
       <div className="content-wrapper">
         <h1 className="title">Notation</h1>
         <p className="subtitle">

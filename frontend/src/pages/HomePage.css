@@ -1,7 +1,7 @@
 .home-page {
   min-height: 100vh;
   background: #ffffff;
-  background-image: radial-gradient(circle, #d0d0d0 1px, transparent 1px);
+  background-image: radial-gradient(circle, #d8d8d8 1px, transparent 1px);
   background-size: 25px 25px;
   display: flex;
   flex-direction: column;
@@ -84,4 +84,34 @@
   color: #666666;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+}
+
+/* Floating Notes Positioning */
+.floating-note-1 {
+  top: 10%;
+  left: 8%;
+}
+
+.floating-note-2 {
+  top: 15%;
+  right: 10%;
+}
+
+.floating-note-3 {
+  bottom: 15%;
+  left: 12%;
+}
+
+.floating-note-4 {
+  bottom: 20%;
+  right: 8%;
+}
+
+@media (max-width: 1024px) {
+  .floating-note-1,
+  .floating-note-2,
+  .floating-note-3,
+  .floating-note-4 {
+    display: none;
+  }
 }
