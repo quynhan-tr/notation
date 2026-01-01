@@ -7,10 +7,13 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     libyaml-dev \
+    texlive-full \
     texlive-latex-extra \
-    texlive-fonts-recommended \
-    texlive-xetex \
     && rm -rf /var/lib/apt/lists/*
+
+# Update LaTeX package manager and install required packages
+RUN tlmgr update --self && \
+    tlmgr install tcolorbox pgf etoolbox environ trimspaces amsmath xcolor geometry
 
 # Set working directory
 WORKDIR /app
