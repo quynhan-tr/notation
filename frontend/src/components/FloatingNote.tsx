@@ -4,14 +4,16 @@ interface FloatingNoteProps {
   className?: string
   delay?: number
   rotate?: number
-  content?: string[]
+  imageSrc: string
+  imageAlt?: string
 }
 
 export function FloatingNote({
   className = '',
   delay = 0,
   rotate = 0,
-  content = ['∫ f(x)dx', 'dy/dx = 2x', '∑ n²']
+  imageSrc,
+  imageAlt = 'Note'
 }: FloatingNoteProps) {
   return (
     <motion.div
@@ -34,13 +36,12 @@ export function FloatingNote({
       className={className}
       style={{
         position: 'absolute',
-        width: '140px',
-        height: '180px',
         backgroundColor: '#ffffff',
         border: '1px solid #e5e7eb',
         borderRadius: '6px',
-        padding: '16px',
+        padding: '8px',
         boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        overflow: 'hidden',
       }}
     >
       <motion.div
@@ -53,44 +54,21 @@ export function FloatingNote({
           ease: 'easeInOut',
         }}
         style={{
-          position: 'relative',
           width: '100%',
           height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '12px',
         }}
       >
-        {content.map((line, idx) => (
-          <div
-            key={idx}
-            style={{
-              color: '#1f2937',
-              fontFamily: "'Computer Modern', 'CMU Serif', 'Latin Modern Roman', Georgia, serif",
-              fontStyle: 'italic',
-              fontSize: '18px',
-            }}
-          >
-            {line}
-          </div>
-        ))}
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            borderRadius: '4px',
+          }}
+        />
       </motion.div>
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '-8px',
-          right: '-8px',
-          borderRadius: '50%',
-          backgroundColor: '#3b82f6',
-          width: '32px',
-          height: '32px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <span style={{ color: 'white', fontSize: '12px', fontWeight: 'bold' }}>∫</span>
-      </div>
     </motion.div>
   )
 }

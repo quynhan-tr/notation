@@ -121,25 +121,29 @@ export default function HomePage() {
         className="floating-note-1"
         delay={0.2}
         rotate={-8}
-        content={['∫ f(x)dx', 'lim x→∞', 'e^(iπ) + 1 = 0']}
+        imageSrc="/before1.png"
+        imageAlt="Before conversion example 1"
       />
       <FloatingNote
         className="floating-note-2"
         delay={0.4}
         rotate={6}
-        content={['dy/dx = 2x', '√(x² + y²)', 'sin²θ + cos²θ']}
+        imageSrc="/after1.png"
+        imageAlt="After conversion example 1"
       />
       <FloatingNote
         className="floating-note-3"
         delay={0.6}
         rotate={-5}
-        content={['∑ n²', 'd/dt[v(t)]', 'Δx → 0']}
+        imageSrc="/before2.png"
+        imageAlt="Before conversion example 2"
       />
       <FloatingNote
         className="floating-note-4"
         delay={0.8}
         rotate={7}
-        content={['∂f/∂x', '∇ · F', '∬ A dA']}
+        imageSrc="/after2.png"
+        imageAlt="After conversion example 2"
       />
 
       <div className="content-wrapper">
