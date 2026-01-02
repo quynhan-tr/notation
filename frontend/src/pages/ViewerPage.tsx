@@ -30,10 +30,6 @@ export default function ViewerPage() {
     return null
   }
 
-  const handleBack = () => {
-    navigate('/')
-  }
-
   return (
     <div className="viewer-page">
       <nav 
