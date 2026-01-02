@@ -120,34 +120,35 @@ export default function HomePage() {
       <FloatingNote
         className="floating-note-1"
         delay={0.2}
-        rotate={-8}
-        imageSrc="/before1.png"
+        rotate={-7}
+        imageSrc="/before1.jpg"
         imageAlt="Before conversion example 1"
       />
       <FloatingNote
         className="floating-note-2"
         delay={0.4}
         rotate={6}
-        imageSrc="/after1.png"
+        imageSrc="/after1.jpg"
         imageAlt="After conversion example 1"
       />
       <FloatingNote
         className="floating-note-3"
         delay={0.6}
         rotate={-5}
-        imageSrc="/before2.png"
+        imageSrc="/before2.jpg"
         imageAlt="Before conversion example 2"
       />
       <FloatingNote
         className="floating-note-4"
         delay={0.8}
         rotate={7}
-        imageSrc="/after2.png"
+        imageSrc="/after2.jpg"
         imageAlt="After conversion example 2"
       />
 
       <div className="content-wrapper">
         <h1 className="title">Notation</h1>
+        
         <p className="subtitle">
           An interface for the synthesis of handwritten mathematics into formal markup. Drop a file or click below to begin.
         </p>
@@ -160,14 +161,25 @@ export default function HomePage() {
           style={{ display: 'none' }}
         />
         
-        <div 
-          ref={varaContainerRef}
-          id="vara-container" 
-          className="upload-link-container"
-          onClick={handleUploadClick}
-          style={{ cursor: isLoading ? 'wait' : 'pointer', opacity: isLoading ? 0.4 : 1 }}
-        >
-          {isLoading && <div className="loading-text">processing...</div>}
+        <div className="upload-area">
+          <div 
+            ref={varaContainerRef}
+            id="vara-container" 
+            className="upload-link-container"
+            onClick={handleUploadClick}
+            style={{ cursor: isLoading ? 'wait' : 'pointer', display: isLoading ? 'none' : 'flex' }}
+          />
+          
+          {isLoading && (
+            <div className="loading-text">
+              processing
+              <span className="loading-dots">
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+              </span>
+            </div>
+          )}
         </div>
 
         {error && <div className="error-message">{error}</div>}

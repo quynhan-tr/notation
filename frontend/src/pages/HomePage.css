@@ -1,7 +1,7 @@
 .home-page {
   min-height: 100vh;
-  background: #ffffff;
-  background-image: radial-gradient(circle, #d8d8d8 1px, transparent 1px);
+  background: #f9f9f9;
+  background-image: radial-gradient(circle, #d8d8d8 1.1px, transparent 1.1px);
   background-size: 25px 25px;
   display: flex;
   flex-direction: column;
@@ -32,11 +32,19 @@
   font-size: 1.1rem;
   color: #000000;
   line-height: 1.7;
-  margin: 0 0 2rem 0;
+  margin-bottom: 1rem;
   font-weight: 400;
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.upload-area {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .upload-link-container {
@@ -59,9 +67,44 @@
 
 .loading-text {
   font-family: 'Computer Modern', 'CMU Serif', 'Latin Modern Roman', Georgia, serif;
-  font-size: 1.1rem;
-  color: #000000;
+  font-size: 1.2rem;
+  color: #666666;
   font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  margin-top: -1rem;
+}
+
+.loading-dots {
+  display: inline-flex;
+  margin-left: 0.2rem;
+}
+
+.loading-dots span {
+  animation: loading-fade 1.4s infinite ease-in-out both;
+}
+
+.loading-dots span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes loading-fade {
+  0%, 80%, 100% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
 }
 
 .error-message {
@@ -132,30 +175,30 @@
 /* Floating Notes Positioning */
 .floating-note-1 {
   top: 10%;
-  left: 8%;
-  width: 180px;
-  height: 220px;
+  left: 7%;
+  width: 220px;
+  height: 270px;
 }
 
 .floating-note-2 {
   top: 10%;
-  right: 10%;
-  width: 180px;
-  height: 220px;
+  right: 7%;
+  width: 220px;
+  height: 270px;
 }
 
 .floating-note-3 {
   bottom: 15%;
-  left: 8%;
-  width: 180px;
-  height: 220px;
+  left: 7%;
+  width: 220px;
+  height: 270px;
 }
 
 .floating-note-4 {
   bottom: 15%;
-  right: 8%;
-  width: 180px;
-  height: 220px;
+  right: 7%;
+  width: 220px;
+  height: 270px;
 }
 
 /* Responsive adjustments */
@@ -164,8 +207,8 @@
   .floating-note-2,
   .floating-note-3,
   .floating-note-4 {
-    width: 150px;
-    height: 180px;
+    width: 180px;
+    height: 220px;
   }
 }
 
