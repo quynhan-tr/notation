@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react'
-import { CompileErrorResponse } from '../types'
+import { Document, Page, pdfjs } from 'react-pdf'
 import './LaTeXViewer.css'
+import { CompileErrorResponse } from '../types'
+
+// Set up PDF.js worker
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
 
 interface LaTeXViewerProps {
   latex: string
@@ -14,6 +18,7 @@ export default function LaTeXViewer({ latex }: LaTeXViewerProps) {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null)
   const [isCompiling, setIsCompiling] = useState<boolean>(false)
   const [compileError, setCompileError] = useState<string | null>(null)
+  const [numPages, setNumPages] = useState<number | null>(null)
 
   useEffect(() => {
     compileLaTeX()
@@ -92,13 +97,23 @@ export default function LaTeXViewer({ latex }: LaTeXViewerProps) {
             {isCompiling && <p className="loading">Compiling LaTeX...</p>}
             {compileError && <p className="error">{compileError}</p>}
             {pdfUrl && (
-              <iframe
-                src={pdfUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 'none', borderRadius: '4px' }}
-                title="LaTeX PDF Preview"
-              />
+              <Document
+                file={pdfUrl}
+                onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+                loading={<p className="loading">Loading PDF...</p>}
+                error={<p className="error">Failed to load PDF</p>}
+              >
+                {Array.from(new Array(numPages), (_, index) => (
+                  <Page
+                    key={`page_${index + 1}`}
+                    pageNumber={index + 1}
+                    scale={1.0}
+                    renderTextLayer={false}
+                    renderAnnotationLayer={false}
+                    pageIndex={index}
+                  />
+                ))}
+              </Document>
             )}
           </div>
         ) : (
