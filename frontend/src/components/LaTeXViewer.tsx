@@ -8,11 +8,12 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/b
 
 interface LaTeXViewerProps {
   latex: string
+  onPdfUrlChange?: (url: string | null) => void
 }
 
 type TabType = 'rendered' | 'raw'
 
-export default function LaTeXViewer({ latex }: LaTeXViewerProps) {
+export default function LaTeXViewer({ latex, onPdfUrlChange }: LaTeXViewerProps) {
   const [activeTab, setActiveTab] = useState<TabType>('rendered')
   const [pdfUrl, setPdfUrl] = useState<string | null>(null)
   const [isCompiling, setIsCompiling] = useState<boolean>(false)
@@ -65,6 +66,7 @@ export default function LaTeXViewer({ latex }: LaTeXViewerProps) {
       const blob = await response.blob()
       const url = URL.createObjectURL(blob)
       setPdfUrl(url)
+      onPdfUrlChange?.(url)
     } catch (err) {
       console.error('LaTeX compilation error:', err)
       const error = err as Error

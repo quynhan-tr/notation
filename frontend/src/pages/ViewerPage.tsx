@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Home, HelpCircle, Github, Download, Copy } from 'lucide-react'
+import { Home, HelpCircle, Github, Download, Copy, FileText, File, ExternalLink } from 'lucide-react'
 import MediaViewer from '../components/MediaViewer'
 import LaTeXViewer from '../components/LaTeXViewer'
 import { UploadData } from '../types'
@@ -13,11 +13,49 @@ export default function ViewerPage() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const [copySuccess, setCopySuccess] = useState<boolean>(false)
 
+  const pdfUrlRef = useRef<string | null>(null)
+
+  const handlePdfUrlChange = (url: string | null) => {
+    pdfUrlRef.current = url
+  }
+
   const handleCopyLatex = () => {
     if (data?.latex) {
       navigator.clipboard.writeText(data.latex)
       setCopySuccess(true)
       setTimeout(() => setCopySuccess(false), 2000)
+    }
+  }
+
+  const handleDownloadPDF = () => {
+    if (pdfUrlRef.current) {
+      const link = document.createElement('a')
+      link.href = pdfUrlRef.current
+      link.download = 'document.pdf'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    }
+  }
+
+  const handleDownloadTeX = () => {
+    if (data?.latex) {
+      const element = document.createElement('a')
+      const file = new Blob([data.latex], { type: 'text/plain' })
+      element.href = URL.createObjectURL(file)
+      element.download = 'document.tex'
+      document.body.appendChild(element)
+      element.click()
+      document.body.removeChild(element)
+      URL.revokeObjectURL(element.href)
+    }
+  }
+
+  const handleOpenInOverleaf = () => {
+    if (data?.latex) {
+      // Overleaf allows opening with LaTeX content via URL parameter
+      const encodedLatex = encodeURIComponent(data.latex)
+      window.open(`https://www.overleaf.com/docs?snip=${encodedLatex}`, '_blank')
     }
   }
 
@@ -71,13 +109,27 @@ export default function ViewerPage() {
           <span className="nav-text">GitHub</span>
         </a>
         <div className="nav-divider"></div>
-        <button 
-          className={`nav-item ${hoveredItem === 'download' ? 'expanded' : ''}`}
-          onMouseEnter={() => setHoveredItem('download')}
-        >
-          <Download size={20} />
-          <span className="nav-text">Download</span>
-        </button>
+        <div className="nav-item-group">
+          <button 
+            className={`nav-item ${hoveredItem === 'download' ? 'expanded' : ''}`}
+            onMouseEnter={() => setHoveredItem('download')}
+          >
+            <Download size={20} />
+            <span className="nav-text">Download</span>
+          </button>
+          {hoveredItem === 'download' && (
+            <div className="download-menu">
+              <button className="download-option" onClick={handleDownloadPDF}>
+                <File size={16} />
+                <span>PDF</span>
+              </button>
+              <button className="download-option" onClick={handleDownloadTeX}>
+                <FileText size={16} />
+                <span>TeX</span>
+              </button>
+            </div>
+          )}
+        </div>
         <button 
           className={`nav-item ${hoveredItem === 'copy' ? 'expanded' : ''}`}
           onMouseEnter={() => setHoveredItem('copy')}
@@ -85,6 +137,14 @@ export default function ViewerPage() {
         >
           <Copy size={20} />
           <span className="nav-text">{copySuccess ? 'Copied!' : 'Copy'}</span>
+        </button>
+        <button 
+          className={`nav-item ${hoveredItem === 'overleaf' ? 'expanded' : ''}`}
+          onMouseEnter={() => setHoveredItem('overleaf')}
+          onClick={handleOpenInOverleaf}
+        >
+          <ExternalLink size={20} />
+          <span className="nav-text">Overleaf</span>
         </button>
       </nav>
 
@@ -97,7 +157,7 @@ export default function ViewerPage() {
           />
         </div>
         <div className="viewer-panel right-panel">
-          <LaTeXViewer latex={data.latex} />
+          <LaTeXViewer latex={data.latex} onPdfUrlChange={handlePdfUrlChange} />
         </div>
       </div>
     </div>

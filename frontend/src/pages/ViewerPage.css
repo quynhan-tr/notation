@@ -71,6 +71,52 @@
   margin: auto 0.25rem;
 }
 
+.nav-item-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.download-menu {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 120px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  z-index: 101;
+}
+
+.download-option {
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: 'Computer Modern', 'CMU Serif', 'Latin Modern Roman', Georgia, serif;
+  color: #333333;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.download-option:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.download-option:first-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
 .viewer-nav-bar .nav-icon {
   display: flex;
   align-items: center;
