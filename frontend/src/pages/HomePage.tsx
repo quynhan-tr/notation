@@ -134,14 +134,14 @@ export default function HomePage() {
       <FloatingNote
         className="floating-note-3"
         delay={0.6}
-        rotate={5}
+        rotate={-5}
         imageSrc="/before2.jpg"
         imageAlt="Before conversion example 2"
       />
       <FloatingNote
         className="floating-note-4"
         delay={0.8}
-        rotate={-7}
+        rotate={7}
         imageSrc="/after2.jpg"
         imageAlt="After conversion example 2"
       />
