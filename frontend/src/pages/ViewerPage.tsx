@@ -39,9 +39,6 @@ export default function ViewerPage() {
           ← Back
         </button>
         <h2>Notation Viewer</h2>
-        <button className="upload-new-button" onClick={handleBack}>
-          Upload New File
-        </button>
       </header>
 
       <div className="viewer-content">

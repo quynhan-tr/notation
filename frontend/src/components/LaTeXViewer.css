@@ -39,14 +39,15 @@
 
 .latex-content {
   flex: 1;
-  overflow: auto;
-  padding: 1.5rem;
+  overflow: hidden;
+  padding: 0;
 }
 
 .rendered-view {
   background: #f8f9fa;
-  border-radius: 4px;
-  min-height: 100%;
+  border-radius: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

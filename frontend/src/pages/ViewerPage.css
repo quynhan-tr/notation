@@ -8,11 +8,12 @@
 .viewer-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 1rem 2rem;
   background: #fff;
   border-bottom: 1px solid #e9ecef;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative;
 }
 
 .viewer-header h2 {
@@ -36,6 +37,8 @@
   background: transparent;
   border: 1px solid #dee2e6;
   color: #495057;
+  position: absolute;
+  left: 2rem;
 }
 
 .back-button:hover {
