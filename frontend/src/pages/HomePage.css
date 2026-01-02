@@ -32,7 +32,7 @@
   font-size: 1.1rem;
   color: #000000;
   line-height: 1.7;
-  margin: 0 0 2rem 0;
+  margin-bottom: 1rem;
   font-weight: 400;
   max-width: 700px;
   margin-left: auto;
@@ -132,30 +132,30 @@
 /* Floating Notes Positioning */
 .floating-note-1 {
   top: 10%;
-  left: 8%;
-  width: 180px;
-  height: 220px;
+  left: 7%;
+  width: 220px;
+  height: 270px;
 }
 
 .floating-note-2 {
   top: 10%;
-  right: 10%;
-  width: 180px;
-  height: 220px;
+  right: 7%;
+  width: 220px;
+  height: 270px;
 }
 
 .floating-note-3 {
   bottom: 15%;
-  left: 8%;
-  width: 180px;
-  height: 220px;
+  left: 7%;
+  width: 220px;
+  height: 270px;
 }
 
 .floating-note-4 {
   bottom: 15%;
-  right: 8%;
-  width: 180px;
-  height: 220px;
+  right: 7%;
+  width: 220px;
+  height: 270px;
 }
 
 /* Responsive adjustments */
@@ -164,8 +164,8 @@
   .floating-note-2,
   .floating-note-3,
   .floating-note-4 {
-    width: 150px;
-    height: 180px;
+    width: 180px;
+    height: 220px;
   }
 }
 
