@@ -161,14 +161,25 @@ export default function HomePage() {
           style={{ display: 'none' }}
         />
         
-        <div 
-          ref={varaContainerRef}
-          id="vara-container" 
-          className="upload-link-container"
-          onClick={handleUploadClick}
-          style={{ cursor: isLoading ? 'wait' : 'pointer', opacity: isLoading ? 0.4 : 1 }}
-        >
-          {isLoading && <div className="loading-text">processing...</div>}
+        <div className="upload-area">
+          <div 
+            ref={varaContainerRef}
+            id="vara-container" 
+            className="upload-link-container"
+            onClick={handleUploadClick}
+            style={{ cursor: isLoading ? 'wait' : 'pointer', display: isLoading ? 'none' : 'flex' }}
+          />
+          
+          {isLoading && (
+            <div className="loading-text">
+              processing
+              <span className="loading-dots">
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+              </span>
+            </div>
+          )}
         </div>
 
         {error && <div className="error-message">{error}</div>}
