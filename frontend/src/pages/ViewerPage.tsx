@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Home, HelpCircle, Github, Download, Share2, Settings } from 'lucide-react'
+import { Home, HelpCircle, Github, Download, Copy } from 'lucide-react'
 import MediaViewer from '../components/MediaViewer'
 import LaTeXViewer from '../components/LaTeXViewer'
 import { UploadData } from '../types'
@@ -11,6 +11,15 @@ export default function ViewerPage() {
   const navigate = useNavigate()
   const data = location.state as UploadData | null
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const [copySuccess, setCopySuccess] = useState<boolean>(false)
+
+  const handleCopyLatex = () => {
+    if (data?.latex) {
+      navigator.clipboard.writeText(data.latex)
+      setCopySuccess(true)
+      setTimeout(() => setCopySuccess(false), 2000)
+    }
+  }
 
   useEffect(() => {
     // Redirect to home if no data is available
@@ -51,27 +60,6 @@ export default function ViewerPage() {
           <HelpCircle size={20} />
           <span className="nav-text">FAQ</span>
         </button>
-        <button 
-          className={`nav-item ${hoveredItem === 'download' ? 'expanded' : ''}`}
-          onMouseEnter={() => setHoveredItem('download')}
-        >
-          <Download size={20} />
-          <span className="nav-text">Download</span>
-        </button>
-        <button 
-          className={`nav-item ${hoveredItem === 'share' ? 'expanded' : ''}`}
-          onMouseEnter={() => setHoveredItem('share')}
-        >
-          <Share2 size={20} />
-          <span className="nav-text">Share</span>
-        </button>
-        <button 
-          className={`nav-item ${hoveredItem === 'settings' ? 'expanded' : ''}`}
-          onMouseEnter={() => setHoveredItem('settings')}
-        >
-          <Settings size={20} />
-          <span className="nav-text">Settings</span>
-        </button>
         <a 
           href="https://github.com/danielquzhao/notation" 
           target="_blank" 
@@ -82,6 +70,22 @@ export default function ViewerPage() {
           <Github size={20} />
           <span className="nav-text">GitHub</span>
         </a>
+        <div className="nav-divider"></div>
+        <button 
+          className={`nav-item ${hoveredItem === 'download' ? 'expanded' : ''}`}
+          onMouseEnter={() => setHoveredItem('download')}
+        >
+          <Download size={20} />
+          <span className="nav-text">Download</span>
+        </button>
+        <button 
+          className={`nav-item ${hoveredItem === 'copy' ? 'expanded' : ''}`}
+          onMouseEnter={() => setHoveredItem('copy')}
+          onClick={handleCopyLatex}
+        >
+          <Copy size={20} />
+          <span className="nav-text">{copySuccess ? 'Copied!' : 'Copy'}</span>
+        </button>
       </nav>
 
       <div className="viewer-content">

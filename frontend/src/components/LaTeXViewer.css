@@ -17,36 +17,38 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .tabs {
   display: flex;
-  gap: 0.5rem;
+  gap: 0;
 }
 
 .tab {
   padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
+  background: transparent;
+  border: none;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-family: 'Computer Modern', 'CMU Serif', 'Latin Modern Roman', Georgia, serif;
   transition: all 0.3s ease;
-  color: #333333;
+  color: #8b8b8b;
   font-weight: 500;
+  outline: none;
 }
 
 .tab:hover {
-  background: rgba(0, 0, 0, 0.05);
-  border-color: rgba(0, 0, 0, 0.15);
+  color: #333333;
+}
+
+.tab:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .tab.active {
-  background: #333333;
-  color: white;
-  border-color: #333333;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #333333;
 }
 
 .latex-content {
@@ -111,6 +113,7 @@
   position: relative;
   height: 100%;
   overflow-y: auto;
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .copy-button {
@@ -138,7 +141,7 @@
 
 .latex-code {
   margin: 0;
-  padding: 3rem 1rem 1rem 1rem;
+  padding: 1rem;
   background: rgba(248, 249, 250, 0.5);
   border-radius: 4px;
   overflow-x: auto;

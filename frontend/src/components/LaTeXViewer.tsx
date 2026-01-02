@@ -14,7 +14,6 @@ type TabType = 'rendered' | 'raw'
 
 export default function LaTeXViewer({ latex }: LaTeXViewerProps) {
   const [activeTab, setActiveTab] = useState<TabType>('rendered')
-  const [copySuccess, setCopySuccess] = useState<boolean>(false)
   const [pdfUrl, setPdfUrl] = useState<string | null>(null)
   const [isCompiling, setIsCompiling] = useState<boolean>(false)
   const [compileError, setCompileError] = useState<string | null>(null)
@@ -75,16 +74,6 @@ export default function LaTeXViewer({ latex }: LaTeXViewerProps) {
     }
   }
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(latex)
-      setCopySuccess(true)
-      setTimeout(() => setCopySuccess(false), 2000)
-    } catch (err) {
-      console.error('Failed to copy:', err)
-    }
-  }
-
   return (
     <div className="latex-viewer">
       <div className="latex-header">
@@ -130,9 +119,6 @@ export default function LaTeXViewer({ latex }: LaTeXViewerProps) {
           </div>
         ) : (
           <div className="raw-view">
-            <button className="copy-button" onClick={handleCopy}>
-              {copySuccess ? '✓ Copied!' : 'Copy'}
-            </button>
             <pre className="latex-code">
               <code>{latex}</code>
             </pre>

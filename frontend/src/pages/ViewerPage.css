@@ -64,6 +64,13 @@
   margin-left: 0.25rem;
 }
 
+.viewer-nav-bar .nav-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.1);
+  margin: auto 0.25rem;
+}
+
 .viewer-nav-bar .nav-icon {
   display: flex;
   align-items: center;
