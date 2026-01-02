@@ -5,14 +5,12 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # API endpoints
-  scope "/api" do
-    post "convert", to: "conversions#create"
-    post "compile", to: "compile#create"
-  end
+  # Conversion endpoint
+  post "convert", to: "conversions#create"
+  
+  # LaTeX compilation endpoint
+  post "compile", to: "compile#create"
 
-  # Serve React frontend for all other routes
-  get "*path", to: "application#fallback_index_html", constraints: ->(request) do
-    !request.xhr? && request.format.html?
-  end
+  # Defines the root path route ("/")
+  # root "posts#index"
 end
