@@ -32,12 +32,12 @@
 
 .media-content {
   flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  overflow: auto;
+  overflow-y: auto;
+  padding: 0;
   background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .uploaded-image {
@@ -47,10 +47,49 @@
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  margin: 2rem 0;
+  padding: 0 2rem;
 }
 
 .uploaded-image:hover {
   transform: scale(1.01);
+}
+
+.media-content .loading,
+.media-content .error {
+  padding: 2rem;
+  text-align: center;
+}
+
+.media-content .error {
+  color: #dc3545;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.media-content .react-pdf__Document {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.media-content .react-pdf__Page {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.media-content .react-pdf__Page:hover {
+  transform: scale(1.01);
+}
+
+.media-content .react-pdf__Page canvas {
+  display: block;
 }
 
 embed {

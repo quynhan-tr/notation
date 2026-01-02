@@ -61,15 +61,8 @@ export default function ViewerPage() {
 
   useEffect(() => {
     // Redirect to home if no data is available
-    if (!data || !data.fileUrl || !data.latex) {
+    if (!data || !data.latex) {
       navigate('/')
-    }
-
-    // Cleanup: revoke blob URL when component unmounts
-    return () => {
-      if (data?.fileUrl) {
-        URL.revokeObjectURL(data.fileUrl)
-      }
     }
   }, [data, navigate])
 
