@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
 import './LaTeXViewer.css'
 import { CompileErrorResponse } from '../types'
@@ -19,10 +19,23 @@ export default function LaTeXViewer({ latex }: LaTeXViewerProps) {
   const [isCompiling, setIsCompiling] = useState<boolean>(false)
   const [compileError, setCompileError] = useState<string | null>(null)
   const [numPages, setNumPages] = useState<number | null>(null)
+  const [containerWidth, setContainerWidth] = useState<number>(0)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     compileLaTeX()
   }, [latex])
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth)
+      }
+    }
+    updateWidth()
+    window.addEventListener('resize', updateWidth)
+    return () => window.removeEventListener('resize', updateWidth)
+  }, [])
 
   const compileLaTeX = async () => {
     setIsCompiling(true)
@@ -93,7 +106,7 @@ export default function LaTeXViewer({ latex }: LaTeXViewerProps) {
 
       <div className="latex-content">
         {activeTab === 'rendered' ? (
-          <div className="rendered-view">
+          <div className="rendered-view" ref={containerRef}>
             {isCompiling && <p className="loading">Compiling LaTeX...</p>}
             {compileError && <p className="error">{compileError}</p>}
             {pdfUrl && (
@@ -107,10 +120,9 @@ export default function LaTeXViewer({ latex }: LaTeXViewerProps) {
                   <Page
                     key={`page_${index + 1}`}
                     pageNumber={index + 1}
-                    scale={1.0}
+                    width={Math.min(containerWidth * 0.9, 800)}
                     renderTextLayer={false}
                     renderAnnotationLayer={false}
-                    pageIndex={index}
                   />
                 ))}
               </Document>

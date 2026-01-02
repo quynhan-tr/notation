@@ -94,6 +94,7 @@
 .raw-view {
   position: relative;
   height: 100%;
+  overflow-y: auto;
 }
 
 .copy-button {
