@@ -1,7 +1,7 @@
 .home-page {
   min-height: 100vh;
-  background: #ffffff;
-  background-image: radial-gradient(circle, #d8d8d8 1px, transparent 1px);
+  background: #f5f5f5;
+  background-image: radial-gradient(circle, #cccccc 1.1px, transparent 1.1px);
   background-size: 25px 25px;
   display: flex;
   flex-direction: column;
