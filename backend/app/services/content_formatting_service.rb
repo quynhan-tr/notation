@@ -65,6 +65,7 @@ class ContentFormattingService
          - Theorems (use a light green box)
          - Examples (use a light yellow box)
          - Important notes (use a light red/pink box)
+      NOTE: Make sure all content specifically any boxes fits on the page that it's on, no overflowing leading to not being able to see content  
       3. Use appropriate mathematical packages (amsmath, amssymb, amsthm, etc.)
       4. Add proper document structure with sections and subsections where appropriate
       5. Ensure all math notation is properly formatted
