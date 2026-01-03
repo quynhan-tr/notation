@@ -16,6 +16,7 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const [pinnedItem, setPinnedItem] = useState<string | null>(null)
   const [isAboutModalOpen, setIsAboutModalOpen] = useState<boolean>(false)
 
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'
@@ -192,16 +193,19 @@ export default function HomePage() {
         onMouseLeave={() => setHoveredItem(null)}
       >
         <button 
-          className={`nav-item ${!hoveredItem || hoveredItem === 'home' ? 'expanded' : ''}`}
+          className={`nav-item ${(!hoveredItem || hoveredItem === 'home') && !pinnedItem ? 'expanded' : ''}`}
           onMouseEnter={() => setHoveredItem('home')}
         >
           <Home size={20} />
           <span className="nav-text">Home</span>
         </button>
         <button 
-          className={`nav-item ${hoveredItem === 'about' ? 'expanded' : ''}`}
+          className={`nav-item ${pinnedItem === 'about' || hoveredItem === 'about' ? 'expanded' : ''}`}
           onMouseEnter={() => setHoveredItem('about')}
-          onClick={() => setIsAboutModalOpen(true)}
+          onClick={() => {
+            setPinnedItem('about')
+            setIsAboutModalOpen(true)
+          }}
         >
           <Info size={20} />
           <span className="nav-text">About</span>
@@ -218,7 +222,10 @@ export default function HomePage() {
         </a>
       </nav>
 
-      <AboutModal isOpen={isAboutModalOpen} onClose={() => setIsAboutModalOpen(false)} />
+      <AboutModal isOpen={isAboutModalOpen} onClose={() => {
+        setIsAboutModalOpen(false)
+        setPinnedItem(null)
+      }} />
     </div>
   )
 }
