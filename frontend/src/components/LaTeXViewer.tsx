@@ -53,7 +53,7 @@ export default function LaTeXViewer({ latex, onPdfUrlChange }: LaTeXViewerProps)
       const getBackendUrl = () => {
         if (import.meta.env.VITE_BACKEND_URL) return import.meta.env.VITE_BACKEND_URL
         if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-          return `${window.location.protocol}//${window.location.hostname.replace('notation-frontend', 'notation-backend')}`
+          return 'https://notation-backend-914600374296.us-central1.run.app'
         }
         return 'http://localhost:3000'
       }

@@ -19,12 +19,12 @@ export default function HomePage() {
   const [pinnedItem, setPinnedItem] = useState<string | null>(null)
   const [isAboutModalOpen, setIsAboutModalOpen] = useState<boolean>(false)
 
-  // Try env var first, fallback to replacing 'frontend' with 'backend' in hostname (Cloud Run)
+  // Try env var first, fallback to Cloud Run backend URL for production
   // then fallback to localhost for development
   const getBackendUrl = () => {
     if (import.meta.env.VITE_BACKEND_URL) return import.meta.env.VITE_BACKEND_URL
     if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-      return `${window.location.protocol}//${window.location.hostname.replace('notation-frontend', 'notation-backend')}`
+      return 'https://notation-backend-914600374296.us-central1.run.app'
     }
     return 'http://localhost:3000'
   }
